@@ -1,0 +1,74 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://47.94.228.136:3306/cb_project?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  redis:
+    host: 47.94.228.136
+    port: 6379
+  servlet:
+    multipart:
+      max-file-size: 100MB # 最大支持文件大小
+      max-request-size: 100MB # 最大支持请求大小
+  mail:  #发送邮件
+    #这个需要根据你开启的服务的邮箱是QQ邮箱,还是网易邮箱区分
+    #smtp.163.com为网易邮箱,smtp.qq.com为QQ邮箱
+    host: smtp.qq.com
+    username: 1161640194@qq.com #你开通SMTP服务的邮箱账号
+    password: lnaaajimewtehece #刚刚生成的授权码,不是邮箱密码
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: UTF-8
+server:
+  port: 9999
+cb-config:
+  swagger-ui-open: true #是否开启swagger接口文档
+
+# JWT配置
+jwt:
+  # 密匙Key
+  secret: JWTSecret,Cb
+  # HeaderKey
+  tokenHeader: Authorization
+  # Token前缀
+  tokenPrefix: Bearer
+  # 过期时间，单位秒
+  expiration: 86400
+  # 刷新时间，单位天
+  refreshTime: 7
+  # 配置白名单（不需要认证）
+  antMatchers: /user/login,/user/register,/user/verifyCode,/static/**,/swagger**/**,/v2/**,/webjars/**
+
+# Mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      id-type: AUTO
+  configuration:
+    # 打印sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,54 @@
+{
+  "groups": [
+    {
+      "name": "jwt",
+      "type": "com.cb.module.common.JwtSecurityProperties",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.cb.module.config.DruidConfig",
+      "sourceMethod": "druid()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jwt.ant-matchers",
+      "type": "java.lang.String",
+      "description": "配置白名单",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    },
+    {
+      "name": "jwt.expiration",
+      "type": "java.lang.Integer",
+      "description": "过期时间",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    },
+    {
+      "name": "jwt.refresh-time",
+      "type": "java.lang.Integer",
+      "description": "有效时间",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "密匙Key",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    },
+    {
+      "name": "jwt.token-header",
+      "type": "java.lang.String",
+      "description": "HeaderKey",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    },
+    {
+      "name": "jwt.token-prefix",
+      "type": "java.lang.String",
+      "description": "Token前缀",
+      "sourceType": "com.cb.module.common.JwtSecurityProperties"
+    }
+  ],
+  "hints": []
+}
