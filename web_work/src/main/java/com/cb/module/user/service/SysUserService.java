@@ -26,12 +26,12 @@ public interface SysUserService extends IService<SysUser> {
 
 
     /**
-     * 根据邮箱或电话号码查询用户信息
+     * 根据用户名或电话号码查询用户信息
      *
      * @param username 邮箱或用户名
      * @return
      */
-    SysUser findUserByEmailOrUsername(String username);
+    SysUser findUserByPhoneOrUsername(String username);
 
     /**
      * 根据用户ID查询角色

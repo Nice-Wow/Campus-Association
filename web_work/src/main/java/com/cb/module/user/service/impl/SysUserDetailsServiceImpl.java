@@ -36,7 +36,7 @@ public class SysUserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserService.findUserByEmailOrUsername(username);
+        SysUser sysUser = sysUserService.findUserByPhoneOrUsername(username);
         if (sysUser != null) {
             SysUserDetails sysUserDetails = new SysUserDetails();
             BeanUtils.copyProperties(sysUser, sysUserDetails);

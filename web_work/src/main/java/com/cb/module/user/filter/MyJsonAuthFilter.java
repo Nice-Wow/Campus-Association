@@ -5,6 +5,8 @@ import com.cb.module.common.redis.template.RedisRepository;
 import com.cb.module.common.utils.RegularExpressionUtils;
 import com.cb.module.common.utils.ResponseUtils;
 import com.cb.module.sms.service.SmsService;
+import com.cb.module.user.domain.SysUser;
+import com.cb.module.user.service.SysUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ import java.util.Map;
 @Slf4j
 public class MyJsonAuthFilter extends UsernamePasswordAuthenticationFilter {
 
+    @Autowired
+    private SysUserService sysUserService;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if(!StringUtils.equalsIgnoreCase("POST",request.getMethod()) || !request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
@@ -44,10 +49,10 @@ public class MyJsonAuthFilter extends UsernamePasswordAuthenticationFilter {
             if(StringUtils.isEmpty(username)){
                 ResponseUtils.responseJson(response, ResponseUtils.response(500, "用户名或手机不能为空",null));
             }
-            if(StringUtils.isEmpty(password)){
+            if(StringUtils.isEmpty(password) && map.get("username") != null){
                 ResponseUtils.responseJson(response, ResponseUtils.response(500, "密码不能为空", null));
             }
-            if(StringUtils.isEmpty(code)){
+            if(StringUtils.isEmpty(code) && map.get("phoneNum") != null){
                 ResponseUtils.responseJson(response,ResponseUtils.response(500,"短信验证码不能为空",null));
             }
 
@@ -55,20 +60,25 @@ public class MyJsonAuthFilter extends UsernamePasswordAuthenticationFilter {
                 ResponseUtils.responseJson(response, ResponseUtils.response(500, "用户名或手机输入格式不合法", null));
             }
 
-            if(!RegularExpressionUtils.check(RegularExpressionUtils.PASSWORD_PATTERN,password)){
+            if(map.get("username") != null && !RegularExpressionUtils.check(RegularExpressionUtils.PASSWORD_PATTERN,password)){
                 ResponseUtils.responseJson(response, ResponseUtils.response(500, "密码输入格式不合法", null));
             }
 
-
             if(RegularExpressionUtils.check(RegularExpressionUtils.PHONE_PATTERN,username)){
-                String verifyCode = RedisRepository.get(username).toString();
-
-                if(StringUtils.isEmpty(verifyCode)){
+                String verifyCode = String.valueOf(RedisRepository.get(username));
+                System.err.println(verifyCode);
+                if(verifyCode == null || "null".equals(verifyCode)){
                     ResponseUtils.responseJson(response, ResponseUtils.response(500, "短信验证码已过期，请重新发送!", null));
                 }
 
                 if(!StringUtils.equals(code,verifyCode)){
                     ResponseUtils.responseJson(response, ResponseUtils.response(500, "短信验证码错误", null));
+                }
+                SysUser sysUser = sysUserService.findUserByPhoneOrUsername(username);
+                if(sysUser != null){
+                    password = sysUser.getPassword();
+                }else{
+                    password = "";
                 }
             }
 
