@@ -41,14 +41,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserRepository, SysUser> 
     }
 
     /**
-     * 根据邮箱或用户名查询用户信息
+     * 根据手机号或用户名查询用户信息
      *
      * @param username 邮箱或用户名
      * @return
      */
     @Override
-    public SysUser findUserByEmailOrUsername(String username) {
-        return this.baseMapper.selectOne(new QueryWrapper<SysUser>().lambda().eq(SysUser::getEmail,username).or().eq(SysUser::getUsername,username).ne(SysUser::getStatus,"1"));
+    public SysUser findUserByPhoneOrUsername(String username) {
+        return this.baseMapper.selectOne(new QueryWrapper<SysUser>().lambda().eq(SysUser::getPhoneNum,username).or().eq(SysUser::getUsername,username).ne(SysUser::getStatus,"1"));
     }
 
     /**

@@ -36,10 +36,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
 		SysUserDetails sysUserDetails = (SysUserDetails) userDetailsService.loadUserByUsername(username);
 		if (sysUserDetails == null) {
-			throw new UsernameNotFoundException("用户名不存在");
+			throw new UsernameNotFoundException("用户名或手机号未注册");
 		}
 
-		if (!new BCryptPasswordEncoder().matches(password, sysUserDetails.getPassword())) {
+		if (!sysUserDetails.getPassword().equals(password) && !new BCryptPasswordEncoder().matches(password, sysUserDetails.getPassword())) {
 			throw new BadCredentialsException("用户名或密码错误");
 		}
 
