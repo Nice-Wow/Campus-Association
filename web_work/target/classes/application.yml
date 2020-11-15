@@ -61,7 +61,7 @@ jwt:
   # 刷新时间，单位天
   refreshTime: 7
   # 配置白名单（不需要认证）
-  antMatchers: /user/login,/user/register,/user/verifyCode,/static/**,/swagger**/**,/v2/**,/webjars/**
+  antMatchers: /user/login,/user/register,/user/verifyCode,/static/**,/swagger**/**,/v2/**,/webjars/**,/sms/send
 
 # Mybatis-plus配置
 mybatis-plus:

@@ -1,6 +1,7 @@
 package com.cb.module.user.filter;
 
 import com.alibaba.druid.util.StringUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cb.module.common.redis.template.RedisRepository;
 import com.cb.module.common.utils.RegularExpressionUtils;
 import com.cb.module.common.utils.ResponseUtils;
