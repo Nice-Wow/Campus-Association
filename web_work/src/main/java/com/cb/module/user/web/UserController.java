@@ -79,7 +79,7 @@ public class UserController {
             return AjaxResult.error("密码输入格式不合法");
         }
 
-        if(!RegularExpressionUtils.check(RegularExpressionUtils.PHONE_PATTERN,sysUser.getPassword())){
+        if(!RegularExpressionUtils.check(RegularExpressionUtils.PHONE_PATTERN,sysUser.getPhoneNum())){
             return AjaxResult.error("手机号输入格式不合法");
         }
         return sysUserSerivce.registerUser(sysUser);
