@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cb.module.items.dao.itemsRepository">
+
+<resultMap id="items" type="com.cb.module.items.domain.items">
+    <id property="itemsId" column="items_id"></id>
+    <result property="itemsName" column="items_name"></result>
+    <result property="id" column="id"></result>
+    <result property="numbers" column="numbers"></result>
+    <result property="nowNumbers" column="now_numbers"></result>
+    <result property="detail" column="detail"></result>
+    <result property="photoUrl" column="photo_url"></result>
+    <result property="community" column="community"></result>
+    <result property="location" column="location"></result>
+    <result property="tag" column="tag"></result>
+</resultMap>
+
+
+    <update id="updateItemByItemId">
+        update items
+        set
+        items_name=#{itemsName},
+        numbers=#{numbers},
+        now_numbers=#{nowNumbers},
+        detail=#{detail},
+        photo_url=#{photoUrl},
+        community=#{community},
+        location=#{location},
+        tag=#{tag}
+        where items_id=#{itemsId}
+    </update>
+    <delete id="deleteItemByItemId">
+        delete
+        from items
+        where items_id=#{itemsId}
+    </delete>
+
+    <select id="listAllproduct" resultType="com.cb.module.items.domain.items">
+        select * from items;
+    </select>
+
+
+    <select id="listProductByUserId" resultType="com.cb.module.items.domain.items" parameterType="long">
+        select *
+        from items
+        where id=#{id}
+    </select>
+
+    <select id="listProductByItemsName" resultType="com.cb.module.items.domain.items" parameterType="string">
+        select *
+        from items
+        where items_name like CONCAT("%",#{itemsName},"%")
+    </select>
+
+    <select id="selectItemsById" resultType="com.cb.module.items.domain.items" parameterType="long">
+        select *
+        from items
+        where items_id=#{itemsId}
+    </select>
+</mapper>

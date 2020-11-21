@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cb.module.borrow.dao.borrowRepository">
+
+    <resultMap id="borrow" type="com.cb.module.borrow.domain.borrow">
+        <id property="itemsId" column="items_id"></id>
+        <result property="id" column="id"></result>
+        <result property="borrowNumbers" column="borrow_numbers"></result>
+    </resultMap>
+
+
+    <delete id="deleteBorrow">
+        delete
+        from borrow
+        where items_id=#{itemsId} and id=#{id}
+    </delete>
+    <select id="selectBorrow" resultType="com.cb.module.borrow.domain.borrow">
+        select *
+        from borrow
+        where items_id=#{itemsId} and id=#{id}
+    </select>
+    <select id="selectMyBorrow" resultType="com.cb.module.borrow.domain.borrow">
+        select *
+        from borrow
+        where id=#{id}
+    </select>
+
+
+</mapper>
