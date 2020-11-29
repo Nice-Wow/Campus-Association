@@ -6,8 +6,13 @@
     <resultMap id="borrow" type="com.cb.module.borrow.domain.borrow">
         <id property="itemsId" column="items_id"></id>
         <result property="id" column="id"></result>
+
+        <result property="itemsName" column="items_name"></result>
         <result property="borrowNumbers" column="borrow_numbers"></result>
     </resultMap>
+    <insert id="addBorrow">
+        insert into borrow values (#{id},#{itemsId},#{borrowNumbers},#{itemsName})
+    </insert>
 
 
     <delete id="deleteBorrow">

@@ -2,6 +2,7 @@ com\cb\module\user\handler\UserAccessDeniedHandler.class
 com\cb\module\borrow\web\borrowController.class
 com\cb\module\common\constant\ScheduleConstants.class
 com\cb\module\user\dao\SysUserRepository.class
+com\cb\module\borrow\domain\borrowUtile2.class
 com\cb\module\config\Swagger2Config.class
 com\cb\module\email\domain\TValidate.class
 com\cb\module\sms\service\SmsService.class
@@ -16,6 +17,7 @@ com\cb\module\user\dao\SysRoleAuthRepository.class
 com\cb\module\user\service\SysAuthService.class
 com\cb\module\common\constant\UserConstants.class
 com\cb\module\sms\service\impl\SmsServiceImpl.class
+com\cb\module\borrow\domain\borrowUtil.class
 com\cb\module\user\dao\SysRoleRepository.class
 com\cb\module\config\DruidConfig.class
 com\cb\module\user\service\SysUserService.class

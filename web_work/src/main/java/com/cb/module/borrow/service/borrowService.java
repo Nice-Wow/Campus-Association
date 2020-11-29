@@ -6,6 +6,7 @@ import com.cb.module.common.entity.AjaxResult;
 
 import java.util.List;
 
+
 public interface borrowService extends IService<borrow> {
     public AjaxResult addBorrow(borrow borrow);
     public int deleteBorrow(long id,long itemsId);

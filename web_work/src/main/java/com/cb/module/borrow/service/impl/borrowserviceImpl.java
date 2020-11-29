@@ -20,7 +20,7 @@ public class borrowserviceImpl extends ServiceImpl<borrowRepository, borrow> imp
 
     @Override
     public AjaxResult addBorrow(borrow borrow) {
-        return this.baseMapper.insert(borrow) == 0 ? AjaxResult.error("租借失败") : AjaxResult.success("租借成功");
+        return borrowRepository.addBorrow(borrow)== 0 ? AjaxResult.error("租借失败") : AjaxResult.success("租借成功");
     }
 
     @Override
@@ -30,6 +30,7 @@ public class borrowserviceImpl extends ServiceImpl<borrowRepository, borrow> imp
 
     @Override
     public borrow selectBorrow(long id, long itemsId) {
+
         return borrowRepository.selectBorrow(id,itemsId);
     }
 

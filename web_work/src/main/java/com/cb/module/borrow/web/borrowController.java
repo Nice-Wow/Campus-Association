@@ -2,6 +2,8 @@ package com.cb.module.borrow.web;
 
 
 import com.cb.module.borrow.domain.borrow;
+import com.cb.module.borrow.domain.borrowUtil;
+import com.cb.module.borrow.domain.borrowUtile2;
 import com.cb.module.borrow.service.borrowService;
 import com.cb.module.common.entity.AjaxResult;
 import com.cb.module.items.domain.items;
@@ -29,8 +31,10 @@ public class borrowController {
 
     @ApiOperation("添加租借")
     @PostMapping("/addBorrow")
-    public AjaxResult addBorrow(@RequestBody long itemsId, @RequestBody String borrowNumbers) {
-        items items = itemsService.selectItemsById(itemsId);
+    public AjaxResult addBorrow(@RequestBody borrowUtil u) {
+        String itemsId=u.getItemsId();
+        String borrowNumbers=u.getBorrowNumbers();
+        items items = itemsService.selectItemsById(Long.parseLong(itemsId));
 
         if (Integer.parseInt(items.getNowNumbers()) < Integer.parseInt(borrowNumbers)) {
             return AjaxResult.error("库存不足");
@@ -41,7 +45,7 @@ public class borrowController {
             SysUserDetails sysUserDetails = (SysUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             borrow.setId(sysUserDetails.getId());
             borrow.setBorrowNumbers(borrowNumbers);
-            borrow.setItemsId(itemsId);
+            borrow.setItemsId(Long.parseLong(itemsId));
             borrow.setItemsName(items.getItemsName());
             return borrowService.addBorrow(borrow);
         }
@@ -49,13 +53,14 @@ public class borrowController {
 
     @ApiOperation("归还租借")
     @PostMapping("/reBorrow")
-    public AjaxResult reBorrow(@RequestBody long itemsId) {
-        items items = itemsService.selectItemsById(itemsId);
+    public AjaxResult reBorrow(@RequestBody borrowUtil b) {
+        String itemsId=b.getItemsId();
+        items items = itemsService.selectItemsById(Long.parseLong(itemsId));
         SysUserDetails sysUserDetails = (SysUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        borrow borrow = borrowService.selectBorrow(sysUserDetails.getId(),itemsId);
+        borrow borrow = borrowService.selectBorrow(sysUserDetails.getId(),Long.parseLong(itemsId));
         items.setNowNumbers(String.valueOf(Integer.parseInt(items.getNowNumbers()) + Integer.parseInt(borrow.getBorrowNumbers())));
         itemsService.updateItemByItemId(items);
-        borrowService.deleteBorrow(sysUserDetails.getId(),itemsId);
+        borrowService.deleteBorrow(sysUserDetails.getId(),Long.parseLong(itemsId));
         return AjaxResult.success("归还成功");
     }
 

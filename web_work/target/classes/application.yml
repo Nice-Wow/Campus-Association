@@ -72,3 +72,6 @@ mybatis-plus:
   configuration:
     # 打印sql
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mybatis:
+  configuration:
+    map-underscore-to-camel-case=true:
